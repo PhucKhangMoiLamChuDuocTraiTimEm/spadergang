@@ -2,207 +2,167 @@
 <html lang="vi">
 <head>
 <meta charset="UTF-8">
-<title>Spader Gang | Official</title>
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+<title>Spader Gang | Tuyển Member</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
 *{box-sizing:border-box}
 body{
-  margin:0;height:100vh;background:#000;
-  font-family:'Orbitron',sans-serif;
-  color:#ff2a2a;overflow:hidden;
-}
-
-/* INTRO CINEMATIC */
-.intro{
-  position:fixed;inset:0;background:black;
+  margin:0;height:100vh;
+  font-family:Arial,Helvetica,sans-serif;
+  background:url("https://images.unsplash.com/photo-1604079628040-94301bb21b91") center/cover no-repeat;
   display:flex;align-items:center;justify-content:center;
-  z-index:99;animation:introOut 3.2s forwards;
+  color:#fff;overflow:hidden;
 }
-.glitch{
-  font-size:42px;position:relative;
-  text-shadow:3px 0 red,-3px 0 cyan;
-  animation:glitch .15s infinite;
+body::before{
+  content:"";position:fixed;inset:0;
+  background:linear-gradient(180deg,rgba(0,0,0,.6),rgba(0,0,0,.9));
 }
-@keyframes glitch{
-  0%{transform:translate(0)}
-  25%{transform:translate(-3px,2px)}
-  50%{transform:translate(3px,-2px)}
-  75%{transform:translate(-2px,1px)}
+.container{
+  position:relative;
+  width:90%;max-width:420px;
+  backdrop-filter:blur(14px);
+  background:rgba(20,20,30,.65);
+  border-radius:16px;
+  padding:24px;
+  box-shadow:0 0 40px rgba(255,0,80,.4);
+  animation:intro .8s ease;
 }
-@keyframes introOut{
-  0%,70%{opacity:1}
-  100%{opacity:0;visibility:hidden}
+@keyframes intro{
+  from{transform:scale(.9);opacity:0}
+  to{transform:scale(1);opacity:1}
 }
-
-/* PARTICLES */
-canvas{position:fixed;inset:0;z-index:-1}
-
-/* MAIN */
-.main{
-  height:100%;display:flex;
-  align-items:center;justify-content:center;
-  padding:18px;
-}
-.card{
-  width:100%;max-width:420px;
-  background:rgba(255,255,255,.06);
-  backdrop-filter:blur(16px);
-  border-radius:22px;
-  padding:30px;
-  box-shadow:0 0 70px rgba(255,0,0,.45);
+h1{
   text-align:center;
-  transition:.1s;
+  color:#ff004c;
+  text-shadow:0 0 15px #ff004c;
+  margin-bottom:10px;
 }
-
-/* TEXT */
-h1{text-shadow:0 0 30px red}
-p{color:#ffaaaa;font-size:14px}
-
-/* INPUT */
+.note{
+  font-size:13px;
+  color:#ffb3c7;
+  text-align:center;
+  margin-bottom:14px;
+}
 input,textarea{
-  width:100%;margin-top:10px;
-  padding:12px;border:none;
-  border-radius:10px;
-  background:#111;color:white;
+  width:100%;
+  padding:10px;
+  margin:6px 0;
+  border:none;
+  border-radius:8px;
+  background:#111;
+  color:#fff;
 }
-
-/* BUTTON */
-.btn{
-  width:100%;margin-top:14px;
-  padding:14px;border-radius:50px;
-  border:none;font-size:16px;
+button{
+  width:100%;
+  padding:12px;
+  margin-top:10px;
+  border:none;
+  border-radius:10px;
+  font-size:15px;
   cursor:pointer;
+  transition:.2s;
 }
 .join{
-  background:#5865F2;color:white;
-  box-shadow:0 0 35px #5865F2;
+  background:#5865F2;
+  box-shadow:0 0 20px #5865F2;
 }
-.join:hover{animation:shake .3s}
-.send{background:red;color:black}
-@keyframes shake{
-  25%{transform:translateX(-2px)}
-  50%{transform:translateX(2px)}
+.join:hover{transform:scale(1.05)}
+.send{
+  background:#ff004c;
+  box-shadow:0 0 25px #ff004c;
 }
-
-/* MOBILE FLOAT */
-.discord-float{
-  position:fixed;bottom:18px;left:18px;
-  width:56px;height:56px;border-radius:50%;
-  background:#5865F2;color:white;
-  display:flex;align-items:center;justify-content:center;
-  font-size:26px;box-shadow:0 0 35px #5865F2;
-  text-decoration:none;z-index:10;
+.send:disabled{
+  opacity:.4;
+  cursor:not-allowed;
+}
+footer{
+  text-align:center;
+  font-size:12px;
+  margin-top:12px;
+  opacity:.8;
 }
 </style>
 </head>
 
 <body>
-
-<div class="intro"><div class="glitch">🕷 SPADER GANG 🕷</div></div>
-<canvas id="p"></canvas>
-
 <audio id="bgm" loop>
-  <source src="music.mp3" type="audio/mpeg">
+  <source src="https://files.catbox.moe/4y8w1a.mp3" type="audio/mpeg">
 </audio>
 
-<a class="discord-float"
-   href="https://discord.gg/vMuj2qqR"
-   target="_blank"
-   onclick="joined=true;fadeMusic()">💬</a>
-
-<div class="main">
-  <div class="card" id="card">
-    <h1>SPADER GANG</h1>
-    <p>Team Gaming • Minecraft • Valorant • Roblox</p>
-
-    <a href="https://discord.gg/vMuj2qqR"
-       target="_blank"
-       class="btn join"
-       onclick="joined=true;fadeMusic()">Join Discord</a>
-
-    <form id="form">
-      <input id="name" placeholder="Tên / IGN" required>
-      <input id="game" placeholder="Game chính" required>
-      <textarea id="note" placeholder="Giới thiệu"></textarea>
-      <button class="btn send">Gửi đơn</button>
-    </form>
-    <div id="status"></div>
+<div class="container">
+  <h1>🕷 SPADER GANG</h1>
+  <div class="note">
+    ⚠️ Lưu ý: Sau khi điền xong form,<br>
+    **bắt buộc Join Discord để được duyệt vào team**
   </div>
+
+  <input id="name" placeholder="Tên ingame">
+  <input id="age" placeholder="Tuổi">
+  <textarea id="skill" placeholder="Kỹ năng / Vị trí"></textarea>
+
+  <button class="join" onclick="joinDiscord()">🔗 Join Discord</button>
+  <button class="send" id="sendBtn" disabled onclick="sendForm()">🚀 Gửi đơn</button>
+
+  <footer>Spader Gang © Gaming Team</footer>
 </div>
 
 <script>
-/* CONFIG */
-const webhook="https://discord.com/api/webhooks/1459012454053969960/9u_opJIKM33ooLt4qzE01xmpucd70mQU3lmhLtby70km3wVpvfw7UZlIGrOVJtdDaQPm";
-let joined=false,last=0;
+const webhook = "https://discord.com/api/webhooks/1459012454053969960/9u_opJIKM33ooLt4qzE01xmpucd70mQU3lmhLtby70km3wVpvfw7UZlIGrOVJtdDaQPm";
+let joined = false;
 
-/* MUSIC FADE */
-function fadeMusic(){
-  const m=bgm;m.volume=0;m.play();
-  let v=0,f=setInterval(()=>{
-    v+=.05;m.volume=v;if(v>=1)clearInterval(f);
+function joinDiscord(){
+  document.getElementById("bgm").volume = 0;
+  document.getElementById("bgm").play();
+  let v = 0;
+  let fade = setInterval(()=>{
+    if(v<0.5){v+=0.05;document.getElementById("bgm").volume=v}
+    else clearInterval(fade);
   },100);
+  window.open("https://discord.gg/YOUR_INVITE","_blank");
+  joined = true;
+  document.getElementById("sendBtn").disabled = false;
 }
 
-/* PARALLAX */
-addEventListener("mousemove",e=>{
-  const x=(innerWidth/2-e.clientX)/40;
-  const y=(innerHeight/2-e.clientY)/40;
-  card.style.transform=`rotateY(${x}deg) rotateX(${y}deg)`;
-});
-
-/* FORM → DISCORD EMBED */
-form.addEventListener("submit",e=>{
-  e.preventDefault();
-  if(!joined){alert("❗ Join Discord trước!");return;}
-  if(Date.now()-last<60000){alert("⏳ Chờ 1 phút!");return;}
-  last=Date.now();
+function sendForm(){
+  if(!joined) return;
+  const data = {
+    embeds:[{
+      title:"🕷 ĐƠN TUYỂN MEMBER",
+      color:16711772,
+      fields:[
+        {name:"Tên",value:document.getElementById("name").value || "?" },
+        {name:"Tuổi",value:document.getElementById("age").value || "?" },
+        {name:"Kỹ năng",value:document.getElementById("skill").value || "?" }
+      ],
+      footer:{text:"Spader Gang Recruitment"}
+    }]
+  };
   fetch(webhook,{
     method:"POST",
     headers:{"Content-Type":"application/json"},
-    body:JSON.stringify({
-      embeds:[{
-        title:"🕷️ ĐƠN TUYỂN SPADER GANG",
-        color:16711680,
-        fields:[
-          {name:"Tên",value:name.value},
-          {name:"Game",value:game.value},
-          {name:"Giới thiệu",value:note.value||"Không"}
-        ],
-        footer:{text:"Spader Gang Official"}
-      }]
-    })
+    body:JSON.stringify(data)
   }).then(()=>{
-    status.innerText="✅ Gửi thành công!";
-    form.reset();
+    alert("✅ Đã gửi! Vui lòng ở lại Discord để được duyệt.");
   });
-});
+}  <!-- NỘI DUNG WEB Ở TRÊN -->
 
-/* PARTICLES */
-const c=p,ctx=c.getContext("2d");
-function rs(){c.width=innerWidth;c.height=innerHeight}
-rs();onresize=rs;
-let d=[...Array(45)].map(()=>({
-  x:Math.random()*c.width,
-  y:Math.random()*c.height,
-  dx:(Math.random()-.5),dy:(Math.random()-.5),
-  r:Math.random()*2+1
-}));
-(function a(){
-  ctx.clearRect(0,0,c.width,c.height);
-  ctx.fillStyle="red";
-  d.forEach(o=>{
-    o.x+=o.dx;o.y+=o.dy;
-    if(o.x<0||o.x>c.width)o.dx*=-1;
-    if(o.y<0||o.y>c.height)o.dy*=-1;
-    ctx.beginPath();
-    ctx.arc(o.x,o.y,o.r,0,Math.PI*2);
-    ctx.fill();
-  });
-  requestAnimationFrame(a);
-})();
-</script>
+  <audio id="bgm" loop>
+    <source src="yeu.mp3" type="audio/mpeg">
+  </audio>
+
+  <script>
+    document.addEventListener("click", () => {
+      const bgm = document.getElementById("bgm");
+      bgm.volume = 0.4;
+      bgm.play().catch(()=>{});
+    }, { once: true });
+  </script>
 
 </body>
 </html>
+
+</script>
+</body>
+</html>
+
